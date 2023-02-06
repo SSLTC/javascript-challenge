@@ -38,9 +38,57 @@ const showInfo = (event) => {
           break;
       }
 
+      howToPrepare(drink);
+      addToBasket(drink);
       return;
     }
   });
+};
+
+const howToPrepare = (drink) => {
+  let elPreparation = document.querySelector(".preparation");
+
+  if (elPreparation === null) {
+    elPreparation = document.createElement("div");
+    elPreparation.classList.add("preparation");
+    const elMain = document.querySelector(".main");
+    elMain.insertBefore(elPreparation, elMain.lastChild);
+  }
+
+  switch (drink.Type) {
+    case "Soft":
+      elPreparation.innerHTML = "Just pour the drink, and you're ready to go!";
+      break;
+    case "Tea":
+      const elUnorderedList = document.createElement("ul");
+      const teaPreparation = [
+        "Put the kettle on",
+        "Get a teaspoon of tea in your cup",
+        "Pour the water and wait for a couple of minutes",
+        "Enjoy the perfect tea!",
+      ];
+      teaPreparation.forEach((step) => {
+        addListItem(elUnorderedList, step);
+      });
+
+      elPreparation.innerHTML = "";
+      elPreparation.appendChild(elUnorderedList);
+      break;
+    case "Cocktail":
+      elPreparation.innerHTML = "Test";
+  }
+};
+
+const addListItem = (list, text) => {
+  const elListItem = document.createElement("li");
+  elListItem.innerText = text;
+  list.appendChild(elListItem);
+};
+
+const addToBasket = (drink) => {
+  const elDrink = document.createElement("li");
+  elDrink.innerText = drink.Name;
+  showBasket(elDrink);
 };
 
 const createButton = (drink) => {
@@ -62,5 +110,21 @@ const createButton = (drink) => {
   const elDrinks = document.querySelector(".navDrinks");
   elDrinks.appendChild(elButton);
 };
+
+const showBasket = (listItem) => {
+  let elBasket = document.querySelector(".basket");
+  let elUnorderedList;
+  if (elBasket === null) {
+    elBasket = document.createElement("div");
+    elBasket.classList.add("basket");
+    elUnorderedList = document.createElement("ul");
+    elBasket.appendChild(elUnorderedList);
+    document.querySelector(".main").appendChild(elBasket);
+  }
+  elUnorderedList = elBasket.firstChild;
+  elUnorderedList.appendChild(listItem);
+};
+
+const calcTotalPrice = () => {};
 
 listDrinks();

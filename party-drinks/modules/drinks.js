@@ -21,12 +21,12 @@ const drinks = [
   },
   {
     Name: "Earl Grey tea",
-    Type: "Soft",
+    Type: "Tea",
     Price: "2",
   },
   {
     Name: "Herbal tea",
-    Type: "Soft",
+    Type: "Tea",
     Price: "2",
   },
   {
