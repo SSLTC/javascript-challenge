@@ -1,10 +1,20 @@
 import drinks from "./modules/drinks.js";
 import getRndRgb from "./modules/getRndColor.js";
+import fetchData from "./modules/fetchData.js";
+import { removeAllChildren } from "./modules/rmAllChildElem.js";
 
 const listDrinks = () => {
   drinks.forEach((drink) => {
     createButton(drink);
   });
+};
+
+const fetchCocktailData = async (drink) => {
+  const cocktailData = await fetchData(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`
+  );
+
+  return cocktailData;
 };
 
 const calcBlackOrWhiteTextColor = (rgbColor) => {
@@ -55,6 +65,8 @@ const howToPrepare = (drink) => {
     elMain.insertBefore(elPreparation, elMain.lastChild);
   }
 
+  removeAllChildren("preparation");
+
   switch (drink.Type) {
     case "Soft":
       elPreparation.innerHTML = "Just pour the drink, and you're ready to go!";
@@ -75,7 +87,25 @@ const howToPrepare = (drink) => {
       elPreparation.appendChild(elUnorderedList);
       break;
     case "Cocktail":
-      elPreparation.innerHTML = "Test";
+      const cocktailData = fetchCocktailData(drink.Name);
+
+      cocktailData.then(
+        function (value) {
+          const firstResult = value.drinks[0];
+          console.log(firstResult);
+
+          const elThumb = document.createElement("img");
+          elThumb.setAttribute("src", firstResult.strDrinkThumb + "/preview");
+          const elInstructions = document.createElement("p");
+          elInstructions.innerText = firstResult.strInstructions;
+
+          elPreparation.append(elThumb, elInstructions);
+        },
+        function (error) {
+          elPreparation.innerHTML =
+            "Cocktail preparation instructions not found in our database";
+        }
+      );
   }
 };
 
