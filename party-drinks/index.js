@@ -89,8 +89,8 @@ const howToPrepare = (drink) => {
     case "Cocktail":
       const cocktailData = fetchCocktailData(drink.Name);
 
-      cocktailData.then(
-        function (value) {
+      cocktailData.then(function (value) {
+        try {
           const firstResult = value.drinks[0];
           console.log(firstResult);
 
@@ -100,12 +100,11 @@ const howToPrepare = (drink) => {
           elInstructions.innerText = firstResult.strInstructions;
 
           elPreparation.append(elThumb, elInstructions);
-        },
-        function (error) {
+        } catch (error) {
           elPreparation.innerHTML =
             "Cocktail preparation instructions not found in our database";
         }
-      );
+      });
   }
 };
 
