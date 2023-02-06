@@ -61,7 +61,9 @@ const showInfo = (event) => {
       }
 
       howToPrepare(drink);
+      calcTotalPrice(drink.Price);
       addToBasket(drink);
+
       return;
     }
   });
@@ -151,9 +153,21 @@ const showBasket = (listItem) => {
     document.querySelector(".main").appendChild(elBasket);
   }
   elUnorderedList = elBasket.firstChild;
-  elUnorderedList.appendChild(listItem);
+
+  let elTotalPrice = document.querySelector(".totalPrice");
+  if (elTotalPrice === null) {
+    elTotalPrice = document.createElement("div");
+    elTotalPrice.classList.add("totalPrice");
+    elUnorderedList.appendChild(elTotalPrice);
+  }
+
+  elUnorderedList.insertBefore(listItem, elUnorderedList.lastChild);
+  elTotalPrice.innerText = "Total: " + totalPrice + " euro";
 };
 
-const calcTotalPrice = () => {};
+let totalPrice = 0;
+const calcTotalPrice = (price) => {
+  totalPrice += parseInt(price);
+};
 
 listDrinks();
