@@ -5,9 +5,34 @@
 
   body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    nav {
+    font-size: 0.8rem;
+    header {
+      .title {
+        margin-left: 1rem;
+        padding: 0.5rem;
+      }
+    }
+    .navDrinks {
+      padding: 0.5rem;
+      background-color: #ffc0cb;
+      text-align: center;
+
       .btnDrinks {
+        margin: 0.3rem;
+        padding: 0.2rem;
         width: 200px;
+      }
+    }
+
+    .main {
+      .preparation {
+        margin: 0.5rem;
+        padding-left: 1rem;
+      }
+      .basket {
+        padding: 0.5rem;
+        padding-left: 1.5rem;
+        background-color: #ffc0cb;
       }
     }
   }

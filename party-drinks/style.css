@@ -5,7 +5,28 @@
 }
 * body {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.8rem;
 }
-* body nav .btnDrinks {
+* body header .title {
+  margin-left: 1rem;
+  padding: 0.5rem;
+}
+* body .navDrinks {
+  padding: 0.5rem;
+  background-color: #ffc0cb;
+  text-align: center;
+}
+* body .navDrinks .btnDrinks {
+  margin: 0.3rem;
+  padding: 0.2rem;
   width: 200px;
+}
+* body .main .preparation {
+  margin: 0.5rem;
+  padding-left: 1rem;
+}
+* body .main .basket {
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  background-color: #ffc0cb;
 }/*# sourceMappingURL=style.css.map */

@@ -9,12 +9,24 @@ const listDrinks = () => {
   });
 };
 
-const fetchCocktailData = async (drink) => {
-  const cocktailData = await fetchData(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`
+const createButton = (drink) => {
+  const buttonColor = getRndRgb();
+  const elButton = document.createElement("button");
+  elButton.classList.add("btnDrinks");
+  elButton.setAttribute("type", "button");
+  elButton.setAttribute(
+    "style",
+    "background-color: " +
+      buttonColor +
+      ";color: " +
+      calcBlackOrWhiteTextColor(buttonColor)
   );
 
-  return cocktailData;
+  elButton.innerText = drink.Name;
+  elButton.value = drink;
+  elButton.addEventListener("click", showInfo);
+  const elDrinks = document.querySelector(".navDrinks");
+  elDrinks.appendChild(elButton);
 };
 
 const calcBlackOrWhiteTextColor = (rgbColor) => {
@@ -108,6 +120,14 @@ const howToPrepare = (drink) => {
   }
 };
 
+const fetchCocktailData = async (drink) => {
+  const cocktailData = await fetchData(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${drink}`
+  );
+
+  return cocktailData;
+};
+
 const addListItem = (list, text) => {
   const elListItem = document.createElement("li");
   elListItem.innerText = text;
@@ -118,26 +138,6 @@ const addToBasket = (drink) => {
   const elDrink = document.createElement("li");
   elDrink.innerText = drink.Name;
   showBasket(elDrink);
-};
-
-const createButton = (drink) => {
-  const buttonColor = getRndRgb();
-  const elButton = document.createElement("button");
-  elButton.classList.add("btnDrinks");
-  elButton.setAttribute("type", "button");
-  elButton.setAttribute(
-    "style",
-    "background-color: " +
-      buttonColor +
-      ";color: " +
-      calcBlackOrWhiteTextColor(buttonColor)
-  );
-
-  elButton.innerText = drink.Name;
-  elButton.value = drink;
-  elButton.addEventListener("click", showInfo);
-  const elDrinks = document.querySelector(".navDrinks");
-  elDrinks.appendChild(elButton);
 };
 
 const showBasket = (listItem) => {
