@@ -3,7 +3,7 @@ import getRndRgb from "./modules/getRndColor.js";
 
 const listDrinks = () => {
   drinks.forEach((drink) => {
-    createButton(drink.Name);
+    createButton(drink);
   });
 };
 
@@ -26,6 +26,23 @@ const calcBlackOrWhiteTextColor = (rgbColor) => {
   }
 };
 
+const showInfo = (event) => {
+  drinks.forEach((drink) => {
+    if (drink.Name === event.target.innerText) {
+      switch (drink.Type) {
+        case "Cocktail":
+          console.log("a cocktail");
+          break;
+        default:
+          console.log("not a cocktail");
+          break;
+      }
+
+      return;
+    }
+  });
+};
+
 const createButton = (drink) => {
   const buttonColor = getRndRgb();
   const elButton = document.createElement("button");
@@ -39,8 +56,9 @@ const createButton = (drink) => {
       calcBlackOrWhiteTextColor(buttonColor)
   );
 
-  elButton.innerText = drink;
+  elButton.innerText = drink.Name;
   elButton.value = drink;
+  elButton.addEventListener("click", showInfo);
   const elDrinks = document.querySelector(".navDrinks");
   elDrinks.appendChild(elButton);
 };
